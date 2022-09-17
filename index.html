@@ -1,13 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./node_modules/bulma/css/bulma.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./node_modules/bulma/css/bulma.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Document</title>
-</head>
-<body>
-    <button class="button is-info is-large">This is a test</button>
-</body>
+  </head>
+  <body>
+    <section id="header" class="hero has-background-grey-darker">
+      <header class="hero-body">
+        <h1 class="title is-3 has-text-light">Exercise Tracker</h1>
+        <h2 class="subtitle is-size-6 pl-1 has-text-light">
+          Track your exercise routine with ease
+        </h2>
+        <button
+          class="button is-primary is-light has-text-blue is-rounded is-focused"
+        >
+          Add Exercise
+        </button>
+      </header>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="columns has-text-left">
+          <div class="column has-background-grey-light">
+            <p class="exercise-task has-background-primary-light has-text-info p-1">First column</p>
+          </div>
+          <div class="column has-background-grey-light">
+            <p class="exercise-task has-background-primary-light has-text-info p-1">Second column</p>
+            <p class="exercise-task has-background-primary-light has-text-info p-1">Second column</p>
+            <p class="exercise-task has-background-primary-light has-text-info p-1">Second column</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
