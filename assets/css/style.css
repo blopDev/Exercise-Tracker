@@ -1,27 +1,24 @@
-html {
-    overflow: hidden;
+* {
+    box-sizing: border-box;
 }
+
+
 
 #header {
     border-bottom: 7px solid #00d1b2;
 }
 
 .column {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: start;
-    align-items: flex-start;
-    margin-left: 4rem;
-    margin-right: 4rem;
+   
     margin-bottom: 4rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
 }
 
 
 .exercise-task {
-    
+
     margin-bottom: 1rem;
     border-radius: 5px;
     border: 1px solid #00d1b2;
 }
-
