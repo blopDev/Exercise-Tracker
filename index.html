@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/bulma/css/bulma.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="" />
     <title>Exercise Tracker</title>
   </head>
   <body>
@@ -14,15 +14,64 @@
       <section id="header" class="hero has-background-grey-darker">
         <header class="hero-body">
           <h1 class="title is-3 has-text-light">Exercise Tracker</h1>
-          <h2 class="subtitle is-size-6 pl-1 has-text-light">
+          <h2 class="subtitle is-size-6 pl-1 has-text-light is-underlined">
             Track your exercise routine with ease
           </h2>
-          <button
-            id="add-exercise"
-            class="button is-primary is-light has-text-blue is-rounded is-focused"
-          >
-            Add Exercise
-          </button>
+          <ul id="exercise-input-list">
+            <li>
+              <div class="field has-text-white">
+                <label class="label has-text-white has-text-weight-normal"
+                  >Exercise</label
+                >
+                <div class="control">
+                  <input
+                    type="text"
+                    name="exercise"
+                    class="input"
+                    placeholder="Enter your Exercise"
+                  />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="field pl-2">
+                <label class="label has-text-white has-text-weight-normal"
+                  ># of Times</label
+                >
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option>1</option>
+                      <option>1</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="field px-2">
+                <label class="label has-text-white has-text-weight-normal"
+                  ># of Sets</label
+                >
+                <div class="control">
+                  <div class="select">
+                    <select>
+                      <option>1</option>
+                      <option>1</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button
+                id="add-exercise"
+                class="button is-primary is-light has-text-blue is-rounded is-focused"
+              >
+                Add Exercise
+              </button>
+            </li>
+          </ul>
         </header>
       </section>
 
