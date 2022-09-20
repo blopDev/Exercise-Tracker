@@ -1,7 +1,33 @@
 const addBtn = document.querySelector("button");
-const test = document.querySelector("#add-exercise");
 const firstCol = document.querySelector("#first-column");
-const optionCont = document.getElementsByTagName("select");
+let optionCont = document.getElementsByTagName("select");
+
+let test = document.querySelector(".sets");
+
+optionCont = Array.from(optionCont); //Array.from makes the array-like object (optionCont) into an actual Array
+
+let createNums = () => {
+  optionCont.forEach((x) => {
+    for (let i = 0; i <= 100; i++) {
+      const numCont = document.createElement("option");
+      numCont.text = i;
+      x.appendChild(numCont);
+    }
+  });
+};
+createNums();
+
+optionCont.forEach((element) => {
+  element.addEventListener("change", (e) => {
+    let val = e.target.value;
+    console.log(val);
+  });
+});
+
+test.addEventListener('change', (e) => {
+    let val = e.target.value;
+    console.log(val)
+})
 
 let createExercise = () => {
   const listItem = document.createElement("li");
@@ -14,17 +40,5 @@ let createExercise = () => {
   listItem.appendChild(listPara);
   firstCol.appendChild(listItem);
 };
-
-let createNums = () => {
-  Array.from(optionCont).forEach((x) => { //Array.from makes the array-like object into an actual Array
-    for (let i = 0; i < 100; i++) {
-      const numCont = document.createElement("option");
-      numCont.text = i;
-      x.appendChild(numCont);
-    }
-  });
-};
-
-createNums();
 
 addBtn.addEventListener("click", createExercise);
