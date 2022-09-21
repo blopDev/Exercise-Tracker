@@ -54,4 +54,7 @@ let createExercise = () => {
   }
 };
 
+
+
+
 addBtn.addEventListener("click", createExercise);
