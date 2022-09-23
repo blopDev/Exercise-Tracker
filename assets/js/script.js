@@ -1,9 +1,4 @@
-const addBtn = document.querySelector("button");
-const firstCol = document.querySelector("#first-column");
 let optionCont = document.getElementsByTagName("select");
-let exeInput = document.querySelector("input");
-
-let sets = document.querySelector(".sets");
 
 optionCont = Array.from(optionCont); //Array.from makes the array-like object (optionCont) into an actual Array
 
@@ -18,43 +13,31 @@ let createNums = () => {
 };
 createNums();
 
-optionCont.forEach((element) => {
-  element.addEventListener("change", (e) => {
-    let val = e.target.value;
-    console.log(val);
-  });
-});
+let exeInput = document.querySelector("input");
 
-sets.addEventListener("change", (e) => {
-  let val = e.target.value;
-  console.log(val);
-});
-
-let createExercise = () => {
+let fromHandler = () => {
   let numRegex = /\d/;
-  let test1 = exeInput.value;
-  let test2 = test1[test1.search(numRegex)];
+  let inputVal = exeInput.value;
+  let numCheck = inputVal[inputVal.search(numRegex)];
 
-  const listItem = document.createElement("li");
-  const listPara = document.createElement("p");
-
-  listPara.className =
-    "exercise-task has-background-primary-light has-text-info p-1";
-
-  console.log(test2);
-
-  if (!exeInput.value || test2) {
+  if (!inputVal || numCheck) {
     alert("Please fill in the form. No numbers should be included!");
     return;
   } else {
-    listPara.textContent = exeInput.value;
-
-    listItem.appendChild(listPara);
-    firstCol.appendChild(listItem);
+    createExercise(inputVal);
   }
 };
 
+const firstCol = document.querySelector("#first-column");
+let sets = document.querySelector(".sets");
+let times = document.querySelector(".times");
 
-
-
-addBtn.addEventListener("click", createExercise);
+let createExercise = (inputVal) => {
+  const listItem = document.createElement("li");
+  listItem.className =
+    "exercise-task has-background-primary-light has-text-info is-size-4 p-1";
+  listItem.innerHTML = `${inputVal}<div class="card is-size-5"><div class="card-content has-text-centered"><p>${times.value} Times | ${sets.value} Sets</p></div></div><footer class="card-footer is-size-5"><a class="edit-exercise card-footer-item">Edit</a><a class="delete-exercise card-footer-item">Delete</a></footer>`;
+  firstCol.appendChild(listItem);
+};
+const addBtn = document.querySelector("button");
+addBtn.addEventListener("click", fromHandler);
