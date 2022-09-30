@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./assets/bulma/css/bulma.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="./assets/fontawesome-free-6.2.0-web/css/all.css"
-    />
     <title>Exercise Tracker</title>
   </head>
   <body>
@@ -82,28 +78,6 @@
                 Exercise To Do
               </h2>
               <ul id="first-column">
-                <li
-                  class="exercise-task has-background-primary-light has-text-info is-size-4 p-1"
-                  data-exercise="132"
-                >
-                  <h3 class="exercise-item-title title is-size-4 has-text-link">${inputVal}</h3>
-                  <div class="card is-size-5">
-                    <div class="card-content has-text-centered">
-                      <span class="exercise-item-times">${times.value}</span><span> Times |</span>
-                      <span class="exercise-item-sets"> ${sets.value}</span><span> Sets</span>
-                    </div>
-                  </div>
-                  <footer class="card-footer is-size-5">
-                    <a class="edit-exercise card-footer-item" data-exercise="132">Edit</a>
-                    <a class="delete-exercise card-footer-item" data-exercise="132">Delete</a>
-                    <div class="select status-select is-primary">
-                      <select class="status" name="status" data-exercise="132">
-                        <option>In Progress</option>
-                        <option>Completed</option>
-                      </select>
-                    </div>
-                  </footer>
-                </li>
               </ul>
             </div>
             <div class="column column-container has-background-grey-light">
@@ -113,11 +87,6 @@
                 Exercise Complete
               </h2>
               <ul id="second-column">
-                <li
-                  class="exercise-task has-background-primary-light has-text-info p-1"
-                >
-                  <p>Second column</p>
-                </li>
               </ul>
             </div>
           </div>

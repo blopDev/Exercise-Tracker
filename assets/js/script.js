@@ -14,46 +14,53 @@ let createNums = () => {
 createNums();
 
 let exeInput = document.querySelector("input");
-let editCheck = document.querySelector('#exercise-input-list')
-
-let fromHandler = () => {
-
+let editCheck = document.querySelector("#exercise-input-list");
+let dataCounter = 0;
+fromHandler = () => {
   let numRegex = /\d/;
   let inputVal = exeInput.value;
   let numCheck = inputVal[inputVal.search(numRegex)];
- 
+
   if (!inputVal || numCheck) {
     alert("Please fill in the form. No numbers should be included!");
     return;
   }
 
-  let isEdit = editCheck.hasAttribute('data-exercise')
-  
-  if(isEdit) {
-    let exeAtt = editCheck.getAttribute('data-exercise')
-    console.log(exeAtt)
-    completeEdit(exeAtt)
-    resetForm()
+  let isEdit = editCheck.hasAttribute("data-exercise");
+
+  if (isEdit) {
+    let exeAtt = editCheck.getAttribute("data-exercise");
+    console.log(exeAtt);
+    completeEdit(exeAtt);
+    resetForm();
   } else {
-    createExercise(inputVal)
+    let exeObj = {
+      id: dataCounter,
+      name: exeInput.value,
+      times: timesCont.value,
+      sets: setCont.value,
+      status: "in progress",
+    };
+
+    console.log(exeObj);
+    createExercise(exeObj);
+    dataCounter++;
     resetForm();
   }
-
 };
-
+let exercises = [];
 const firstCol = document.querySelector("#first-column");
-let dataCounter = 0;
 
-let createExercise = (inputVal) => {
+let createExercise = (exeObj) => {
   const listItem = document.createElement("li");
   listItem.className =
     "exercise-task has-background-primary-light has-text-info is-size-4 p-1";
   listItem.setAttribute("data-exercise", dataCounter);
-  listItem.innerHTML = `<h3 class="exercise-item-title title is-size-4 has-text-link">${inputVal}</h3>
+  listItem.innerHTML = `<h3 class="exercise-item-title title is-size-4 has-text-link">${exeObj.name}</h3>
   <div class="card is-size-5">
     <div class="card-content has-text-centered">
-      <span class="exercise-item-times">${timesCont.value}</span><span> Times |</span>
-      <span class="exercise-item-sets"> ${setCont.value}</span><span> Sets</span>
+      <span class="exercise-item-times">${exeObj.times}</span><span> Times |</span>
+      <span class="exercise-item-sets"> ${exeObj.sets}</span><span> Sets</span>
     </div>
   </div>
   <footer class="card-footer is-size-5">
@@ -68,8 +75,8 @@ let createExercise = (inputVal) => {
   </footer>`;
   firstCol.appendChild(listItem);
 
-  dataCounter++;
-
+  exercises.push(exeObj);
+  saveExe(exercises)
   resetForm();
 };
 
@@ -78,6 +85,7 @@ let resetForm = () => {
   timesCont.value = 0;
   setCont.value = 0;
 };
+
 const secCol = document.querySelector("#second-column");
 
 let statusHandler = (event) => {
@@ -86,12 +94,26 @@ let statusHandler = (event) => {
   let exeStatus = event.target.value;
 
   let exeSelected = document.querySelector(`li[data-exercise="${exeAtt}"`);
-
+  console.log(exeStatus)
   if (exeStatus === "Completed") {
     secCol.appendChild(exeSelected);
-  } else {
+    for (let i = 0; i < exercises.length; i++) {
+      if (exercises[i].id === parseInt(exeAtt)) {
+        exercises[i].status = exeStatus;
+        console.log(exercises[i].status)
+      }
+    }
+  } else if (exeStatus === "In Progress"){
     firstCol.appendChild(exeSelected);
+    for (let i = 0; i < exercises.length; i++) {
+      if (exercises[i].id === parseInt(exeAtt)) {
+        exercises[i].status = exeStatus;
+        console.log(exercises[i].status)
+      }
+    }
   }
+
+  saveExe(exercises)
 };
 
 let buttonHandler = (event) => {
@@ -100,7 +122,7 @@ let buttonHandler = (event) => {
   let exeSelected = document.querySelector(`li[data-exercise="${exeAtt}"`);
 
   if (event.matches(".delete-exercise")) {
-    deleteBtn(exeSelected);
+    deleteBtn(exeSelected, exeAtt);
   } else if (event.matches(".edit-exercise")) {
     editBtn(exeSelected, exeAtt);
   } else {
@@ -108,12 +130,31 @@ let buttonHandler = (event) => {
   }
 };
 
-let deleteBtn = (exeSelected) => {
+let trashArr = [];
+
+let deleteBtn = (exeSelected, exeAtt) => {
   exeSelected.remove();
+  console.log(exeAtt);
+
+  for (let i = 0; i < exercises.length; i++) {
+    if (exercises[i].id === parseInt(exeAtt)) {
+      console.log(exercises[i].id); // 0
+      console.log(exeAtt); // 1
+      //The condition shouldn't have been met. Now below itll filter out everything but index 0
+      let updatedExe = exercises.filter(
+        (exercise) => exercise.id !== exercises[i].id
+      );
+      console.log(updatedExe);
+      exercises = updatedExe;
+      break;
+    }
+  }
+
+  console.log(exercises);
 };
 
 let editBtn = (exeSelected, exeAtt) => {
-  console.log(exeAtt)
+  console.log(exeAtt);
   let exeName = exeSelected.querySelector(".exercise-item-title");
   let exeSelectTimes = exeSelected.querySelector(".exercise-item-times");
   let exeSelectSets = exeSelected.querySelector(".exercise-item-sets");
@@ -124,25 +165,57 @@ let editBtn = (exeSelected, exeAtt) => {
   timesCont.value = exeSelectTimes;
   setCont.value = exeSelectSets;
 
-  editCheck.setAttribute('data-exercise', exeAtt)
-  addBtn.textContent = 'Edit Exercise'
+  editCheck.setAttribute("data-exercise", exeAtt);
+  addBtn.textContent = "Edit Exercise";
+  
 };
 
 let completeEdit = (exeAtt) => {
-  console.log(exeAtt)
+  console.log(exeAtt);
   let exeSelected = document.querySelector(`li[data-exercise="${exeAtt}"`);
-  
+
   let exeName = exeSelected.querySelector(".exercise-item-title");
   let exeSelectTimes = exeSelected.querySelector(".exercise-item-times");
   let exeSelectSets = exeSelected.querySelector(".exercise-item-sets");
 
-  exeName.textContent = exeInput.value
-  exeSelectTimes.textContent = timesCont.value
-  exeSelectSets.textContent = setCont.value
-  editCheck.removeAttribute('data-exercise')
-  addBtn.textContent = 'Add Exercise'
+  exeName.textContent = exeInput.value;
+  exeSelectTimes.textContent = timesCont.value;
+  exeSelectSets.textContent = setCont.value;
+  console.log(exercises);
+  for (let i = 0; i < exercises.length; i++) {
+    if (exercises[i].id == exeAtt) {
+      exercises[i].name = exeName.textContent;
+      exercises[i].times = timesCont.value;
+      exercises[i].sets = setCont.value;
+      console.log(exercises);
+    }
+  }
+
+  editCheck.removeAttribute("data-exercise");
+  addBtn.textContent = "Add Exercise";
+  saveExe(exercises)
+};
+
+let saveExe = (exercises) => {
+  localStorage.setItem('exercises', JSON.stringify(exercises))
 }
 
+let loadExe = () => {
+  let savedExes = localStorage.getItem('exercises')
+  if(!savedExes) {
+    exercises = []
+    return false
+  }
+
+  savedExes = JSON.parse(savedExes)
+
+  for (let i = 0; i < savedExes.length; i++) {
+    createExercise(savedExes[i])
+    
+  }
+}
+
+loadExe()
 
 const addBtn = document.querySelector("button");
 addBtn.addEventListener("click", fromHandler);
